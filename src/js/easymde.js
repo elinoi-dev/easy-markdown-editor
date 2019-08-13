@@ -1241,6 +1241,7 @@ function wordCount(data) {
 }
 
 function maxLengthCount(el, value, options) {
+    el.classList.remove('max-length-exceeded');
     el.innerHTML = '';
     var counter = document.createElement('span');
     counter.classList.add('counter');
