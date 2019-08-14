@@ -1240,26 +1240,30 @@ function wordCount(data) {
     return count;
 }
 
-function maxLengthCount(el, value, options, type) {
-    function setLimit(el, value, attribut) {
+function maxLengthCount(el, value, options) {
+    function setLimit(el, value, attribut, type) {
         if (
             undefined !== attribut && attribut > 0
         ) {
-            var maxLength = document.createElement('span');
-            maxLength.classList.add('max-length');
-            if (value.length > attribut) {
+            var spanLength = document.createElement('span');
+            if ('min' === type) {
+                spanLength.classList.add('min-length');
+                spanLength.innerHTML = String(attribut + ' / ');
+                el.prepend(spanLength);
+            } else {
+                spanLength.classList.add('max-length');
+                spanLength.innerHTML = String(' / ' + attribut);
+                el.append(spanLength);
+            }
+            if ('min' === type && value.length < attribut) {
                 el.classList.add('char-length-exceeded');
             }
-            if ('min' === type) {
-                maxLength.innerHTML = String(' / ' + attribut);
-                el.prepend(maxLength);
-            } else {
-                maxLength.innerHTML = String(attribut + ' / ');
-                el.append(maxLength);
+            if ('max' === type && value.length > attribut) {
+                el.classList.add('char-length-exceeded');
             }
         }
     }
-    el.classList.remove('max-length-exceeded');
+    el.classList.remove('char-length-exceeded');
     el.innerHTML = '';
     var counter = document.createElement('span');
     counter.classList.add('counter');

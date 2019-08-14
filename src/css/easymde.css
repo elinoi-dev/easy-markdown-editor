@@ -336,7 +336,7 @@
   min-width: auto;
 }
 
-.editor-statusbar .characters.max-length-exceeded .counter {
+.editor-statusbar .characters.char-length-exceeded .counter {
   color: red;
 }
 
