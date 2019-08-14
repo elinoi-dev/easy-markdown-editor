@@ -1240,7 +1240,25 @@ function wordCount(data) {
     return count;
 }
 
-function maxLengthCount(el, value, options) {
+function maxLengthCount(el, value, options, type) {
+    function setLimit(el, value, attribut) {
+        if (
+            undefined !== attribut && attribut > 0
+        ) {
+            var maxLength = document.createElement('span');
+            maxLength.classList.add('max-length');
+            if (value.length > attribut) {
+                el.classList.add('char-length-exceeded');
+            }
+            if ('min' === type) {
+                maxLength.innerHTML = String(' / ' + attribut);
+                el.prepend(maxLength);
+            } else {
+                maxLength.innerHTML = String(attribut + ' / ');
+                el.append(maxLength);
+            }
+        }
+    }
     el.classList.remove('max-length-exceeded');
     el.innerHTML = '';
     var counter = document.createElement('span');
@@ -1248,13 +1266,10 @@ function maxLengthCount(el, value, options) {
     counter.innerHTML = String(value.length);
     el.append(counter);
     if (undefined !== options.maxLength && options.maxLength > 0) {
-        var maxLength = document.createElement('span');
-        maxLength.classList.add('max-length');
-        if (value.length > options.maxLength) {
-            el.classList.add('max-length-exceeded');
-        }
-        maxLength.innerHTML = String(' / ' + options.maxLength);
-        el.append(maxLength);
+        setLimit(el, value, options.maxLength, 'max');
+    }
+    if (undefined !== options.minLength && options.minLength > 0) {
+        setLimit(el, value, options.minLength, 'min');
     }
 }
 

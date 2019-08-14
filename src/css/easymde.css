@@ -330,8 +330,23 @@
   content: "characters: ";
 }
 
+.editor-statusbar .characters .counter {
+  margin: 0;
+  padding: 0 5px;
+  min-width: auto;
+}
+
 .editor-statusbar .characters.max-length-exceeded .counter {
   color: red;
+}
+
+.editor-statusbar .characters .min-length {
+  min-width: auto;
+}
+
+.editor-statusbar .characters .max-length {
+  margin: 0;
+  padding: 0;
 }
 
 .editor-preview-full {
